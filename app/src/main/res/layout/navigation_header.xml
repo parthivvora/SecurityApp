@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/dark_blue"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="30dp"
+    android:paddingBottom="30dp">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/user"
+        app:shapeAppearanceOverlay="@style/user_image_circular"
+        android:scaleType="centerCrop"
+        android:contentDescription="user_image"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="@string/parthiv_vora"
+        android:gravity="center"
+        android:textSize="22sp"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingLeft="22dp"
+        android:textColor="@color/white"/>
+
+</LinearLayout>

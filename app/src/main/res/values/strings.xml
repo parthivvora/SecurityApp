@@ -1,3 +1,24 @@
 <resources>
     <string name="app_name">SecurityApp</string>
+    <string name="user_name">User Name</string>
+    <string name="password">Password</string>
+    <string name="parthiv_vora">Parthiv Vora</string>
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+
+    <string-array name="visitor_category">
+        <item>Engineer</item>
+        <item>Electrician</item>
+        <item>Plumber</item>
+        <item>Milk Man</item>
+        <item>Bank Man</item>
+        <item>Cleaner</item>
+        <item>News Paper</item>
+        <item>Lift Mechanic</item>
+        <item>Delivery Men</item>
+        <item>Grocery Men</item>
+        <item>Doctor</item>
+        <item>Guest</item>
+        <item>Other</item>
+    </string-array>
 </resources>
