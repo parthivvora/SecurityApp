@@ -2,7 +2,6 @@ package com.example.securityapp
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.securityapp.databinding.ActivityLoginBinding
@@ -31,17 +30,16 @@ class LoginActivity : AppCompatActivity() {
         val password = binding.password.text.toString()
 
         if (email.isEmpty() || password.isEmpty()) {
-            Toast.makeText(this, "Please, Enter email and password ...!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this@LoginActivity, "Please, Enter email and password ...!", Toast.LENGTH_SHORT).show()
         } else {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        val id = auth.currentUser?.uid ?: ""
-                        Log.d("login user id", "User id = $id")
-                        startActivity(Intent(this, MainActivity::class.java))
+                        Toast.makeText(this@LoginActivity, "Your are successfully login ...!", Toast.LENGTH_SHORT).show()
+                        startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     } else {
-                        Toast.makeText(this, "Login failed", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginActivity, "Login failed", Toast.LENGTH_SHORT).show()
                     }
                 }
         }

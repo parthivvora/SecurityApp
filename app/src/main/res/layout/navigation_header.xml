@@ -10,22 +10,13 @@
     android:paddingTop="30dp"
     android:paddingBottom="30dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/user"
-        app:shapeAppearanceOverlay="@style/user_image_circular"
-        android:scaleType="centerCrop"
-        android:contentDescription="user_image"/>
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:text="@string/parthiv_vora"
+        android:text="@string/security1"
         android:gravity="center"
-        android:textSize="22sp"
+        android:textSize="26sp"
         android:fontFamily="@font/poppins_semibold"
-        android:paddingLeft="22dp"
         android:textColor="@color/white"/>
 
 </LinearLayout>

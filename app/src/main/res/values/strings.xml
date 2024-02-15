@@ -5,6 +5,18 @@
     <string name="parthiv_vora">Parthiv Vora</string>
     <string name="open">Open</string>
     <string name="close">Close</string>
+    <string name="in_icon">in_icon</string>
+    <string name="out_icon">out_icon</string>
+    <string name="welcome_to_secure_home">Welcome to Secure Home</string>
+    <string name="home">Home</string>
+    <string name="in_door">In Door</string>
+    <string name="out_door">Out Door</string>
+    <string name="menu_icon">menu_icon</string>
+    <string name="_2_10_pm">2:10 PM</string>
+    <string name="exit">EXIT</string>
+    <string name="ic_arrow_back">ic_arrow_back</string>
+    <string name="no_visitor_data_found">No visitor data found</string>
+    <string name="security1">Security1</string>
 
     <string-array name="visitor_category">
         <item>Engineer</item>

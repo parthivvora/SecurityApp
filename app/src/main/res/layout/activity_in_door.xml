@@ -55,6 +55,7 @@
                 android:layout_height="100dp"
                 android:contentDescription="visitor_image"
                 android:scaleType="centerCrop"
+                android:src="@drawable/user"
                 app:shapeAppearanceOverlay="@style/user_image_circular" />
 
         </LinearLayout>

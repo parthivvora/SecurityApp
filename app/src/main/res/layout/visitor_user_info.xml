@@ -40,13 +40,31 @@
                     android:id="@+id/visitorUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Parthiv" />
+                    android:text="Parthiv"
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/visitInTime"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="7:46 PM" />
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/in_time_icon" />
+
+                    <TextView
+                        android:id="@+id/visitInTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="5dp"
+                        android:text="@string/_2_10_pm"
+                        android:textColor="@color/textColorLight"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <Button

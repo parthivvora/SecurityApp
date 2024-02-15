@@ -26,15 +26,16 @@
 
             <ImageView
                 android:id="@+id/menuIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:contentDescription="@string/menu_icon"
                 android:src="@drawable/menu_icon" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Home"
+                android:text="@string/home"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
@@ -51,7 +52,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Welcome to Secure Home"
+                android:text="@string/welcome_to_secure_home"
                 android:textColor="@color/dark_blue"
                 android:textSize="24sp" />
 
@@ -82,16 +83,17 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/in_icon"/>
+                    android:contentDescription="@string/in_icon"
+                    android:src="@drawable/in_icon" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="In Door"
+                    android:paddingStart="20dp"
+                    android:text="@string/in_door"
                     android:textColor="@color/dark_blue"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -120,16 +122,17 @@
                 <ImageView
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:src="@drawable/out_icon"/>
+                    android:contentDescription="@string/out_icon"
+                    android:src="@drawable/out_icon" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
-                    android:paddingLeft="20dp"
-                    android:text="Out Door"
+                    android:paddingStart="20dp"
+                    android:text="@string/out_door"
                     android:textColor="@color/dark_blue"
-                    android:textSize="24sp"/>
+                    android:textSize="24sp" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -141,8 +144,13 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/navigation_menu"/>
+        android:fitsSystemWindows="true">
+
+        <include
+            android:id="@+id/customMenu"
+            layout="@layout/navigation_menu"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </com.google.android.material.navigation.NavigationView>
 
 </androidx.drawerlayout.widget.DrawerLayout>

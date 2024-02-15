@@ -23,17 +23,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/ic_arrow_back" />
+            android:src="@drawable/ic_arrow_back"
+            android:contentDescription="@string/ic_arrow_back"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="EXIT"
+            android:text="@string/exit"
             android:textColor="@color/white"
             android:textSize="22sp" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/noDataTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/outDoorAppBar"
+        android:layout_marginTop="40dp"
+        android:gravity="center_horizontal"
+        android:text="@string/no_visitor_data_found"
+        android:textSize="22sp"
+        android:visibility="gone" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/visitorDataRecyclerView"

@@ -1,6 +1,7 @@
 package com.example.securityapp
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
@@ -8,7 +9,6 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
 import android.widget.Toast
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -16,9 +16,9 @@ import androidx.core.view.GravityCompat
 import com.example.securityapp.databinding.ActivityMainBinding
 import com.google.firebase.auth.FirebaseAuth
 
+@Suppress("DEPRECATION", "SameParameterValue")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
-    private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var auth: FirebaseAuth
 
     companion object {
@@ -34,20 +34,12 @@ class MainActivity : AppCompatActivity() {
         // Setup navigation drawer
         setupView()
 
-        binding.menuIcon.setOnClickListener {
-            if (binding.drawerLayout.isDrawerOpen(binding.navView)) {
-                binding.drawerLayout.closeDrawer(binding.navView)
-            } else {
-                binding.drawerLayout.openDrawer(binding.navView)
-            }
-        }
-
         binding.inDoorActivity.setOnClickListener {
             checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE)
         }
 
         binding.outDoorActivity.setOnClickListener {
-            startActivity(Intent(this, OutActivity::class.java))
+            startActivity(Intent(this@MainActivity, OutActivity::class.java))
             finish()
         }
     }
@@ -56,7 +48,7 @@ class MainActivity : AppCompatActivity() {
         super.onStart()
         auth = FirebaseAuth.getInstance()
         if (auth.currentUser == null) {
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
             finish()
         } else {
             Log.d("login user id", "onStart: " + auth.currentUser!!.uid)
@@ -64,6 +56,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Check camera permission
+    @SuppressLint("QueryPermissionsNeeded")
     private fun checkPermission(permission: String, requestCode: Int) {
         if (ContextCompat.checkSelfPermission(
                 this@MainActivity,
@@ -72,8 +65,6 @@ class MainActivity : AppCompatActivity() {
         ) {
             ActivityCompat.requestPermissions(this@MainActivity, arrayOf(permission), requestCode)
         } else {
-            Toast.makeText(this@MainActivity, "Permission already granted", Toast.LENGTH_SHORT)
-                .show()
             val intent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             if (intent.resolveActivity(packageManager) != null) {
                 startActivityForResult(intent, CAMERA_PERMISSION_CODE)
@@ -81,6 +72,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
@@ -103,59 +95,46 @@ class MainActivity : AppCompatActivity() {
     }
 
     // Click picture using Camera
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CAMERA_PERMISSION_CODE && resultCode == RESULT_OK) {
             val bitmap = data?.extras?.get("data") as Bitmap
-            val intent = Intent(this, InDoorActivity::class.java)
+            val intent = Intent(this@MainActivity, InDoorActivity::class.java)
             intent.putExtra("visitorImage", bitmap)
             startActivity(intent)
         }
     }
 
     private fun setupView() {
-        actionBarDrawerToggle =
-            ActionBarDrawerToggle(this, binding.drawerLayout, R.string.open, R.string.close)
-        binding.drawerLayout.addDrawerListener(actionBarDrawerToggle)
+        binding.menuIcon.setOnClickListener {
+            binding.drawerLayout.openDrawer(GravityCompat.START)
+        }
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        actionBarDrawerToggle.syncState()
-
-        binding.navView.setNavigationItemSelectedListener { menuItem ->
-            when (menuItem.itemId) {
-                R.id.profile -> {
-                    Toast.makeText(this, "Profile", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                R.id.privacyPolicy -> {
-                    Toast.makeText(this, "Privacy Policy", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                R.id.termsCondition -> {
-                    Toast.makeText(this, "Terms Condition", Toast.LENGTH_SHORT).show()
-                    true
-                }
-
-                R.id.logout -> {
-                    Toast.makeText(this, "Logout", Toast.LENGTH_LONG).show()
-                    auth.signOut()
-                    startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-                    finish()
-                    true
-                }
-
-                else -> false
-            }
+        binding.customMenu.profile.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Profile", Toast.LENGTH_SHORT).show()
+        }
+        binding.customMenu.privacyPolicy.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Privacy Policy", Toast.LENGTH_SHORT).show()
+        }
+        binding.customMenu.termCondition.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Terms Condition", Toast.LENGTH_SHORT).show()
+        }
+        binding.customMenu.logout.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Logout", Toast.LENGTH_LONG).show()
+            auth.signOut()
+            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+            finish()
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        if (binding.drawerLayout.isDrawerOpen(binding.navView)) {
-            binding.drawerLayout.closeDrawer(binding.navView)
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            binding.drawerLayout.close()
         } else {
             super.onBackPressed()
+            finishAffinity()
         }
     }
 

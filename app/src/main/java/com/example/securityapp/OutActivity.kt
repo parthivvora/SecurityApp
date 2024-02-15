@@ -1,8 +1,14 @@
+@file:Suppress("DEPRECATION")
+
 package com.example.securityapp
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.securityapp.dataAdapter.VisitorDataAdapter
@@ -12,10 +18,16 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Locale
 
+@Suppress("DEPRECATION", "NAME_SHADOWING")
 class OutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOutBinding
     private lateinit var visitorUserList: ArrayList<VisitorUserData>
+    private lateinit var progressDialog: ProgressDialog
+    private lateinit var noDataTextView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityOutBinding.inflate(layoutInflater)
@@ -23,14 +35,21 @@ class OutActivity : AppCompatActivity() {
         setContentView(view)
 
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this@OutActivity, MainActivity::class.java))
             finish()
         }
+
+        noDataTextView = findViewById(R.id.noDataTextView)
+        progressDialog = ProgressDialog(this@OutActivity)
+        progressDialog.setMessage("Loading...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
 
         visitorUserList = arrayListOf<VisitorUserData>()
         getVisitorData()
     }
 
+    // Get visitor data
     private fun getVisitorData() {
         try {
             val database = FirebaseDatabase.getInstance().reference.child("visitor")
@@ -39,22 +58,33 @@ class OutActivity : AppCompatActivity() {
                     if (snapshot.exists()) {
                         for (visitor in snapshot.children) {
                             val visitorData = visitor.getValue(VisitorUserData::class.java)
-                            visitorUserList.add(visitorData!!)
-                        }
-                        binding.visitorDataRecyclerView.layoutManager =
-                            LinearLayoutManager(this@OutActivity, LinearLayoutManager.VERTICAL, false)
-                        binding.visitorDataRecyclerView.setHasFixedSize(true)
-                        val adapter = VisitorDataAdapter(visitorUserList, this@OutActivity)
-                        binding.visitorDataRecyclerView.adapter = adapter
-                        adapter.setOnItemClickListener(object :VisitorDataAdapter.OnItemClickListener{
-                            override fun onItemClick(visitorData: String?) {
-                                Log.d("select visitorData", "onItemClick: $visitorData")
+                            progressDialog.dismiss()
+                            if (visitorData!!.isVisitorStatus == true) {
+                                visitorUserList.add(visitorData)
+                                binding.visitorDataRecyclerView.layoutManager =
+                                    LinearLayoutManager(
+                                        this@OutActivity,
+                                        LinearLayoutManager.VERTICAL,
+                                        false
+                                    )
+                                binding.visitorDataRecyclerView.setHasFixedSize(true)
+                                val adapter = VisitorDataAdapter(visitorUserList, this@OutActivity)
+                                binding.visitorDataRecyclerView.adapter = adapter
+                                adapter.setOnItemClickListener(object :
+                                    VisitorDataAdapter.OnItemClickListener {
+                                    override fun onItemClick(visitorData: String?) {
+                                        updateVisitorOutTime(visitorData)
+                                    }
+                                })
+                            } else {
+                                noDataTextView.visibility = View.VISIBLE
                             }
-                        })
+                        }
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
+                    progressDialog.dismiss()
                     Log.d("Error when get data from FB", "onCancelled: ${error.message}")
                 }
             })
@@ -63,6 +93,47 @@ class OutActivity : AppCompatActivity() {
         }
     }
 
+    // Update visitor exit time
+    private fun updateVisitorOutTime(visitorData: String?) {
+        val database = FirebaseDatabase.getInstance().getReference("visitor").orderByChild("id")
+            .equalTo(visitorData!!)
+        database.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                if (snapshot.exists()) {
+                    for (snapshot in snapshot.children) {
+                        val visitor = snapshot.getValue(VisitorUserData::class.java)
+                        val currentTime = Calendar.getInstance().time
+                        val dateFormat = SimpleDateFormat("h:mm a", Locale.getDefault())
+
+                        visitor?.let {
+                            it.outTime = dateFormat.format(currentTime)
+                            it.isVisitorStatus = false
+                            snapshot.ref.setValue(visitor)
+                        }
+                        Toast.makeText(
+                            this@OutActivity,
+                            "Visitor exit time updated",
+                            Toast.LENGTH_SHORT
+                        )
+                            .show()
+                        startActivity(Intent(this@OutActivity, MainActivity::class.java))
+                        finish()
+                    }
+                } else {
+                    Toast.makeText(this@OutActivity, "Visitor not found", Toast.LENGTH_SHORT)
+                        .show()
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(
+                    this@OutActivity, "Database error: ${error.message}", Toast.LENGTH_SHORT
+                ).show()
+            }
+        })
+    }
+
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this, MainActivity::class.java))

@@ -22,11 +22,12 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
 
+@Suppress("DEPRECATION")
 class InDoorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInDoorBinding
     private lateinit var calendar: Calendar
     private lateinit var visitorImage: ShapeableImageView
-    private var database = FirebaseDatabase.getInstance().reference
+//    private var database = FirebaseDatabase.getInstance().reference
     private lateinit var imageData: ByteArray
     private lateinit var name: String
     private lateinit var mobile: String
@@ -123,6 +124,7 @@ class InDoorActivity : AppCompatActivity() {
         }
     }
 
+    // Save visitor data into FireBase Real Time Database
     private fun saveVisitorData(image: String) {
         val database = FirebaseDatabase.getInstance().getReference("visitor")
         val id = database.push().key
@@ -189,6 +191,7 @@ class InDoorActivity : AppCompatActivity() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
         startActivity(Intent(this, MainActivity::class.java))

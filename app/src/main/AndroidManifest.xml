@@ -6,7 +6,6 @@
         android:name="android.hardware.camera"
         android:required="false" />
 
-
     <uses-permission android:name="android.permission.SEND_SMS" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -28,20 +27,16 @@
             android:exported="false" />
         <activity
             android:name=".DemoActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".OutActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".InDoorActivity"
-            android:exported="true" />
+            android:exported="false" />
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="false" />
         <activity
             android:name=".SplashActivity"
             android:exported="false"
