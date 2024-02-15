@@ -35,10 +35,12 @@ class MainActivity : AppCompatActivity() {
         setupView()
 
         binding.inDoorActivity.setOnClickListener {
+            binding.inDoorActivity.background = resources.getDrawable(R.drawable.card_border, null)
             checkPermission(Manifest.permission.CAMERA, CAMERA_PERMISSION_CODE)
         }
 
         binding.outDoorActivity.setOnClickListener {
+            binding.outDoorActivity.background = resources.getDrawable(R.drawable.card_border, null)
             startActivity(Intent(this@MainActivity, OutActivity::class.java))
             finish()
         }

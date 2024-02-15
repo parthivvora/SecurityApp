@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView.OnQueryTextListener
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.securityapp.dataAdapter.VisitorDataAdapter
 import com.example.securityapp.dataModel.VisitorUserData
@@ -25,6 +26,7 @@ import java.util.Locale
 @Suppress("DEPRECATION", "NAME_SHADOWING")
 class OutActivity : AppCompatActivity() {
     private lateinit var binding: ActivityOutBinding
+    private lateinit var adapter: VisitorDataAdapter
     private lateinit var visitorUserList: ArrayList<VisitorUserData>
     private lateinit var progressDialog: ProgressDialog
     private lateinit var noDataTextView: TextView
@@ -45,8 +47,44 @@ class OutActivity : AppCompatActivity() {
         progressDialog.setCancelable(false)
         progressDialog.show()
 
+        // Search bar functionality
+        binding.searchView.setOnQueryTextListener(object : OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterList(newText)
+                return true
+            }
+        })
+
         visitorUserList = arrayListOf<VisitorUserData>()
         getVisitorData()
+    }
+
+    // Searching function
+    private fun filterList(newText: String?) {
+        if (newText != null) {
+            val filterListData = ArrayList<VisitorUserData>()
+            for (i in visitorUserList) {
+                if (i.name?.toLowerCase(Locale.ROOT)!!
+                        .matches(Regex(newText, RegexOption.IGNORE_CASE))
+                ) {
+                    filterListData.add(i)
+                }
+            }
+
+            if (visitorUserList.isEmpty()) {
+                getVisitorData()
+            } else if (filterListData.isEmpty()) {
+                Toast.makeText(this@OutActivity, "No data found", Toast.LENGTH_SHORT).show()
+                noDataTextView.visibility = View.VISIBLE
+                visitorUserList.clear()
+            } else {
+                adapter.setFilteredList(filterListData)
+            }
+        }
     }
 
     // Get visitor data
@@ -59,6 +97,7 @@ class OutActivity : AppCompatActivity() {
                         for (visitor in snapshot.children) {
                             val visitorData = visitor.getValue(VisitorUserData::class.java)
                             progressDialog.dismiss()
+                            // if visitor status is true then show visitor data
                             if (visitorData!!.isVisitorStatus == true) {
                                 visitorUserList.add(visitorData)
                                 binding.visitorDataRecyclerView.layoutManager =
@@ -68,7 +107,7 @@ class OutActivity : AppCompatActivity() {
                                         false
                                     )
                                 binding.visitorDataRecyclerView.setHasFixedSize(true)
-                                val adapter = VisitorDataAdapter(visitorUserList, this@OutActivity)
+                                adapter = VisitorDataAdapter(visitorUserList, this@OutActivity)
                                 binding.visitorDataRecyclerView.adapter = adapter
                                 adapter.setOnItemClickListener(object :
                                     VisitorDataAdapter.OnItemClickListener {

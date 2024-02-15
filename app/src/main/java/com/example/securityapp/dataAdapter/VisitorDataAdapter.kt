@@ -13,7 +13,7 @@ import com.example.securityapp.dataModel.VisitorUserData
 import com.google.android.material.imageview.ShapeableImageView
 
 class VisitorDataAdapter(
-    private val visitorDataList: ArrayList<VisitorUserData>,
+    private var visitorDataList: ArrayList<VisitorUserData>,
     private val context: Context
 ) :
     RecyclerView.Adapter<VisitorDataAdapter.VisitorDataViewHolder>() {
@@ -25,6 +25,11 @@ class VisitorDataAdapter(
     private var listener: OnItemClickListener? = null
     fun setOnItemClickListener(listener: OnItemClickListener) {
         this.listener = listener
+    }
+
+    fun setFilteredList(searchDataList: ArrayList<VisitorUserData>) {
+        visitorDataList = searchDataList
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VisitorDataViewHolder {
