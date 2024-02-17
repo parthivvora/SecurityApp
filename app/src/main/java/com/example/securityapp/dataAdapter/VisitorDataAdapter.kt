@@ -1,5 +1,6 @@
 package com.example.securityapp.dataAdapter
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -27,6 +28,7 @@ class VisitorDataAdapter(
         this.listener = listener
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setFilteredList(searchDataList: ArrayList<VisitorUserData>) {
         visitorDataList = searchDataList
         notifyDataSetChanged()

@@ -11,7 +11,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content">
 
         <LinearLayout
             android:id="@+id/inDoorAppBar"
@@ -29,13 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:contentDescription="@string/ic_arrow_back"
                 android:src="@drawable/ic_arrow_back" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="ENTRY"
+                android:text="@string/entry"
                 android:textColor="@color/white"
                 android:textSize="22sp" />
 
@@ -53,7 +54,7 @@
                 android:id="@+id/visitor_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
-                android:contentDescription="visitor_image"
+                android:contentDescription="@string/visitor_image"
                 android:scaleType="centerCrop"
                 android:src="@drawable/user"
                 app:shapeAppearanceOverlay="@style/user_image_circular" />
@@ -79,8 +80,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Name"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/name"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -96,8 +99,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Mobile Number"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/mobile_number"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -113,8 +118,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Building Name"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/building_name"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -130,8 +137,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Flat Number"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/flat_number"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -147,8 +156,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Person"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/person"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -164,8 +175,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Car / Bike No"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/car_bike_no"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -174,6 +187,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:baselineAligned="false"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -182,6 +196,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
+                    android:gravity="center_vertical"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -189,13 +204,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Select Date"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_arrow_down" />
+                        android:text="@string/select_date"
+                        android:textSize="16sp"
+                        app:drawableRightCompat="@drawable/ic_arrow_down" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -204,6 +215,7 @@
                     android:layout_weight="1"
                     android:orientation="horizontal"
                     android:paddingTop="10dp"
+                    android:gravity="center_vertical"
                     android:paddingBottom="10dp">
 
                     <TextView
@@ -211,13 +223,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/poppins_semibold"
-                        android:text="Select Time"
-                        android:textSize="16sp" />
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_arrow_down" />
+                        android:text="@string/select_time"
+                        android:textSize="16sp"
+                        app:drawableRightCompat="@drawable/ic_arrow_down" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -235,7 +243,7 @@
                     android:layout_weight="1"
                     android:inputType="none"
                     android:paddingVertical="12dp"
-                    android:text="Select category" />
+                    android:text="@string/select_category" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -250,8 +258,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_semibold"
-                    android:hint="Remark"
+                    android:backgroundTint="@color/white"
                     android:paddingVertical="12dp"
+                    android:hint="@string/remark"
+                    android:textColor="@color/text_color"
                     android:textSize="14sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -263,7 +273,7 @@
                 android:backgroundTint="@color/dark_blue"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Submit"
+                android:text="@string/submit"
                 android:textSize="20sp"
                 app:cornerRadius="10dp" />
 

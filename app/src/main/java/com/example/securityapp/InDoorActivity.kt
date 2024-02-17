@@ -58,7 +58,7 @@ class InDoorActivity : AppCompatActivity() {
         }
 
         binding.backBtn.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this@InDoorActivity, MainActivity::class.java))
             finish()
         }
 
@@ -68,7 +68,7 @@ class InDoorActivity : AppCompatActivity() {
 
         // Select language using Dropdown menu
         val languages = resources.getStringArray(R.array.visitor_category)
-        val arrayAdapter = ArrayAdapter(this, R.layout.dropdown_item, languages)
+        val arrayAdapter = ArrayAdapter(this@InDoorActivity, R.layout.dropdown_item, languages)
         binding.autoCompleteTextView.setAdapter(arrayAdapter)
         binding.autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
             category = parent.getItemAtPosition(position).toString()
@@ -145,10 +145,12 @@ class InDoorActivity : AppCompatActivity() {
         val childReference = database.child(id ?: "")
         childReference.setValue(user)
             .addOnSuccessListener {
-                Toast.makeText(this, "Data saved successfully", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@InDoorActivity, "Visitor information is successfully add", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this@InDoorActivity, MainActivity::class.java))
+                finish()
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this, "Failed to save data: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@InDoorActivity, "Failed to save data: ${e.message}", Toast.LENGTH_SHORT).show()
             }
 
     }
@@ -166,7 +168,6 @@ class InDoorActivity : AppCompatActivity() {
                 inTime = "$formattedHour:$formattedMinute $amPm"
             }, hour, minute, false
         )
-
         timePickerDialog.show()
     }
 
@@ -194,6 +195,6 @@ class InDoorActivity : AppCompatActivity() {
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         super.onBackPressed()
-        startActivity(Intent(this, MainActivity::class.java))
+        startActivity(Intent(this@InDoorActivity, MainActivity::class.java))
     }
 }

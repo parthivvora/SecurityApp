@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
-            android:text="Security1"
+            android:text="@string/security1"
             android:textColor="@color/white"
             android:textSize="26sp" />
 
@@ -34,7 +34,7 @@
             android:id="@+id/profile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Profile"
+            android:text="@string/profile"
             android:textSize="18sp" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Privacy Policy"
+            android:text="@string/privacy_policy"
             android:textSize="18sp" />
 
         <TextView
@@ -50,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Terms &amp; Condition"
+            android:text="@string/terms_amp_condition"
             android:textSize="18sp" />
 
         <TextView
@@ -58,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Logout"
+            android:text="@string/logout"
             android:textSize="18sp" />
 
     </LinearLayout>

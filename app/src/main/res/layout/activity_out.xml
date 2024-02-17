@@ -36,17 +36,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/noDataTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/outDoorAppBar"
-        android:layout_marginTop="40dp"
-        android:gravity="center_horizontal"
-        android:text="@string/no_visitor_data_found"
-        android:textSize="22sp"
-        android:visibility="gone" />
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/materialCardView"
         android:layout_below="@+id/outDoorAppBar"
@@ -62,18 +51,29 @@
             android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:queryHint="Search here..."
+            app:queryHint="Search visitor here..."
             app:iconifiedByDefault="false"
             android:background="@color/white"
             app:queryBackground="@android:color/transparent"/>
 
     </com.google.android.material.card.MaterialCardView>
 
+    <TextView
+        android:id="@+id/noDataTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/materialCardView"
+        android:layout_marginTop="20dp"
+        android:gravity="center_horizontal"
+        android:text="@string/no_visitor_data_found"
+        android:textSize="30sp"
+        android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/visitorDataRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/materialCardView"
+            android:layout_below="@+id/noDataTextView"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp" />

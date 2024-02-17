@@ -11,8 +11,8 @@ data class VisitorUserData(
     val vehicleNo: String? = null,
     val entryDate: String? = null,
     val inTime: String? = null,
-    var outTime: String? = null,
     val category: String? = null,
     var remark: String? = null,
+    var outTime: String? = null,
     var isVisitorStatus: Boolean? = true,
 )

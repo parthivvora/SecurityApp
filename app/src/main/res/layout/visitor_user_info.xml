@@ -26,7 +26,7 @@
                 android:src="@drawable/user"
                 app:shapeAppearanceOverlay="@style/visitor_image_radius"
                 android:scaleType="centerCrop"
-                android:contentDescription="visitor_image"/>
+                android:contentDescription="@string/visitor_image"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -40,7 +40,7 @@
                     android:id="@+id/visitorUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Parthiv"
+                    android:text="@string/parthiv"
                     android:textSize="18sp"
                     android:textStyle="bold"/>
 
@@ -53,13 +53,14 @@
                         android:layout_width="16dp"
                         android:layout_height="16dp"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/in_time_icon" />
+                        android:src="@drawable/in_time_icon"
+                        android:contentDescription="@string/in_time_icon"/>
 
                     <TextView
                         android:id="@+id/visitInTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
+                        android:paddingStart="5dp"
                         android:text="@string/_2_10_pm"
                         android:textColor="@color/textColorLight"
                         android:textSize="16sp" />
@@ -71,7 +72,7 @@
                 android:id="@+id/exitBtn"
                 android:layout_width="75dp"
                 android:layout_height="40dp"
-                android:text="EXIT"
+                android:text="@string/exit"
                 android:backgroundTint="@color/dark_blue"
                 android:textColor="@color/white"
                 app:cornerRadius="8dp"

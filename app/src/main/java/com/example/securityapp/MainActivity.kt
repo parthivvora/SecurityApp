@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
         private const val CAMERA_PERMISSION_CODE = 100
     }
 
+    @SuppressLint("UseCompatLoadingForDrawables")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

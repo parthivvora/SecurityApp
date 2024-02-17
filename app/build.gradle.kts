@@ -48,7 +48,12 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("com.google.firebase:firebase-auth:22.3.1")
     implementation("com.google.firebase:firebase-database-ktx:20.3.0")
+    // https://mvnrepository.com/artifact/com.google.firebase/firebase-messaging
+    implementation("com.google.firebase:firebase-messaging:23.4.1")
+
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+    implementation("com.android.volley:volley:1.2.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.10.2")
     testImplementation("junit:junit:4.13.2")
     implementation("com.github.bumptech.glide:glide:4.11.0")
     annotationProcessor("com.github.bumptech.glide:compiler:4.11.0")
