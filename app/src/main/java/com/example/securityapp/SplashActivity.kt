@@ -23,9 +23,9 @@ class SplashActivity : AppCompatActivity() {
         val slideAnimation = AnimationUtils.loadAnimation(this@SplashActivity, R.anim.fade_in)
         backgroundImage.startAnimation(slideAnimation)
 
-//        Handler().postDelayed({
-//            startActivity(Intent(this, MainActivity::class.java))
-//            finish()
-//        }, 3000)
+        Handler().postDelayed({
+            startActivity(Intent(this, MainActivity::class.java))
+            finish()
+        }, 2000)
     }
 }
