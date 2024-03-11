@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
+import android.view.animation.AnimationUtils
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.securityapp.databinding.ActivitySplashBinding
 
@@ -17,9 +19,13 @@ class SplashActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        Handler().postDelayed({
-            startActivity(Intent(this, MainActivity::class.java))
-            finish()
-        }, 3000)
+        val backgroundImage: ImageView = findViewById(R.id.splashImageView)
+        val slideAnimation = AnimationUtils.loadAnimation(this@SplashActivity, R.anim.fade_in)
+        backgroundImage.startAnimation(slideAnimation)
+
+//        Handler().postDelayed({
+//            startActivity(Intent(this, MainActivity::class.java))
+//            finish()
+//        }, 3000)
     }
 }

@@ -78,7 +78,8 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
                 android:paddingHorizontal="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="50dp"
@@ -93,12 +94,14 @@
                     android:paddingStart="20dp"
                     android:text="@string/in_door"
                     android:textColor="@color/dark_blue"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/outDoorCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardBackgroundColor="@color/white"
@@ -117,7 +120,8 @@
                 android:layout_height="wrap_content"
                 android:paddingVertical="16dp"
                 android:paddingHorizontal="20dp"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                tools:ignore="UseCompoundDrawables">
 
                 <ImageView
                     android:layout_width="50dp"
@@ -132,9 +136,98 @@
                     android:paddingStart="20dp"
                     android:text="@string/out_door"
                     android:textColor="@color/dark_blue"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:ignore="RtlSymmetry" />
 
             </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/staffInCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/outDoorCard"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:id="@+id/staffInActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:contentDescription="@string/out_icon"
+                    android:src="@drawable/in_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:paddingStart="20dp"
+                    android:text="@string/staff_entry"
+                    android:textColor="@color/dark_blue"
+                    android:textSize="24sp"
+                    tools:ignore="RtlSymmetry" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/staffInCard"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="20dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="10dp"
+            app:cardMaxElevation="12dp"
+            app:cardPreventCornerOverlap="true">
+
+            <LinearLayout
+                android:id="@+id/staffOutActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="16dp"
+                tools:ignore="UseCompoundDrawables">
+
+                <!--                <ImageView-->
+                <!--                    android:layout_width="50dp"-->
+                <!--                    android:layout_height="50dp"-->
+                <!--                    android:contentDescription="@string/out_icon"-->
+                <!--                    android:src="@drawable/out_icon" />-->
+
+                <!--                <TextView-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="match_parent"-->
+                <!--                    android:gravity="center_vertical"-->
+                <!--                    android:paddingStart="20dp"-->
+                <!--                    android:text="@string/staff_exit"-->
+                <!--                    android:textColor="@color/dark_blue"-->
+                <!--                    android:textSize="24sp"-->
+                <!--                    tools:ignore="RtlSymmetry" />-->
+                <Button
+                    android:id="@+id/sujal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="hello" />
+            </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
     </RelativeLayout>

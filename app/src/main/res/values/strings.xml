@@ -40,6 +40,10 @@
     <string name="terms_amp_condition"><![CDATA[Terms & Condition]]></string>
     <string name="in_time_icon">in_time_icon</string>
     <string name="parthiv">Parthiv</string>
+    <string name="textview">TextView</string>
+    <string name="staff_exit">Staff Exit</string>
+    <string name="staff_entry">Staff Entry</string>
+    <string name="splash_logo">splash_logo</string>
 
     <string-array name="visitor_category">
         <item>Engineer</item>
@@ -55,5 +59,18 @@
         <item>Doctor</item>
         <item>Guest</item>
         <item>Other</item>
+    </string-array>
+
+    <string-array name="building_name">
+        <item>A-1</item>
+        <item>A-2</item>
+        <item>B-1</item>
+        <item>B-2</item>
+        <item>C-1</item>
+        <item>C-2</item>
+        <item>D-1</item>
+        <item>D-2</item>
+        <item>E-1</item>
+        <item>E-2</item>
     </string-array>
 </resources>

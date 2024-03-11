@@ -36,9 +36,8 @@ class OutActivity : AppCompatActivity() {
     private lateinit var progressDialog: ProgressDialog
     private lateinit var noDataTextView: TextView
 
-    private var title: String = "Visitor Information"
-    private var message: String =
-        "Security, in the context of financial investments, refers to a fungible, negotiable financial instrument that holds some type of monetary value. It represents an ownership position in a publicly-traded corporation through stock; a creditor relationship with a governmental body or a corporation represented by owning a bond; or rights to ownership as represented by an option. Securities are typically traded on a stock exchange, where investors can buy and sell shares of stocks, bonds, mutual funds, and other financial instruments. The regulation of securities is a crucial aspect of the financial markets, ensuring transparency, fairness, and protection for investors. Furthermore, securities are essential components of the broader financial system, often used by companies and governments as a means of raising capital."
+    private var title: String = "Visitor Exit Notification"
+    private var message: String = "The visitor has left your house."
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -107,7 +106,6 @@ class OutActivity : AppCompatActivity() {
                     if (snapshot.exists()) {
                         for (visitor in snapshot.children) {
                             val visitorData = visitor.getValue(VisitorUserData::class.java)
-                            Log.d("visitorData", "onDataChange: $visitorData")
                             progressDialog.dismiss()
                             // if visitor status is true then show visitor data
                             if (visitorData!!.isVisitorStatus == true) {
@@ -127,20 +125,20 @@ class OutActivity : AppCompatActivity() {
                                         updateVisitorOutTime(visitorData)
                                     }
                                 })
-                            } else {
-                                noDataTextView.visibility = View.VISIBLE
                             }
                         }
+                    } else {
+                        noDataTextView.visibility = View.VISIBLE
                     }
                 }
 
                 override fun onCancelled(error: DatabaseError) {
                     progressDialog.dismiss()
-                    Log.d("Error when get data from FB", "onCancelled: ${error.message}")
+                    Log.d("Error when get data from DB", "onCancelled: ${error.message}")
                 }
             })
         } catch (e: Exception) {
-            Log.d("Error when get data from FB", "onCancelled: ${e.message}")
+            Log.d("Error when get data from DB", "onCancelled: ${e.message}")
         }
     }
 
@@ -220,7 +218,6 @@ class OutActivity : AppCompatActivity() {
                 Log.d("Database error ", "Database error: ${databaseError.message}")
             }
         })
-
     }
 
     @Deprecated("Deprecated in Java")

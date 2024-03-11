@@ -14,12 +14,14 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.example.securityapp.databinding.ActivityMainBinding
+import com.example.securityapp.fcmService.FcmNotificationsSender
 import com.google.firebase.auth.FirebaseAuth
 
 @Suppress("DEPRECATION", "SameParameterValue")
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var notificationsSender: FcmNotificationsSender
 
     companion object {
         private const val CAMERA_PERMISSION_CODE = 100
@@ -44,6 +46,29 @@ class MainActivity : AppCompatActivity() {
             binding.outDoorActivity.background = resources.getDrawable(R.drawable.card_border, null)
             startActivity(Intent(this@MainActivity, OutActivity::class.java))
             finish()
+        }
+
+        binding.staffInActivity.setOnClickListener {
+            binding.staffInActivity.background = resources.getDrawable(R.drawable.card_border, null)
+            startActivity(Intent(this@MainActivity, StaffActivity::class.java))
+            finish()
+        }
+
+        binding.staffOutActivity.setOnClickListener {
+            binding.staffOutActivity.background = resources.getDrawable(R.drawable.card_border, null)
+            startActivity(Intent(this@MainActivity, StaffExitActivity::class.java))
+            finish()
+        }
+
+        binding.sujal.setOnClickListener {
+            notificationsSender = FcmNotificationsSender(
+                "e81f9zrBRVqVEFShTGyxlL:APA91bE4LrqsH2Dj3IdyAFweU3MkoutYCs1GxKN1H9xFU41y5sFRIAok4Ilag-2qVtSjdWeUA3nOThtnKtG9z0_kbP8i_5e-XmC0fmWped-_wedtg--bbDl1bhIqn_Du1SMZibWwYJFW",
+                "Visitor Entry Notification",
+                "The visitor has entered your house.",
+                applicationContext,
+                this@MainActivity
+            )
+            notificationsSender.SendNotifications()
         }
     }
 
@@ -124,10 +149,15 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this@MainActivity, "Terms Condition", Toast.LENGTH_SHORT).show()
         }
         binding.customMenu.logout.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Logout", Toast.LENGTH_LONG).show()
-            auth.signOut()
-            startActivity(Intent(this@MainActivity, LoginActivity::class.java))
-            finish()
+           try {
+               Toast.makeText(this@MainActivity, "Logout", Toast.LENGTH_LONG).show()
+               auth.signOut()
+               startActivity(Intent(this@MainActivity, LoginActivity::class.java))
+               finish()
+           }
+           catch (e:Exception){
+               Log.d("Error when logout", "setupView: ${e.message}")
+           }
         }
     }
 

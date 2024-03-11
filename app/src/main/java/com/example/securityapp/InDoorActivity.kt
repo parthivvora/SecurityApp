@@ -11,10 +11,15 @@ import android.widget.ArrayAdapter
 import android.widget.TimePicker
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.securityapp.dataModel.UserDataModel
 import com.example.securityapp.dataModel.VisitorUserData
 import com.example.securityapp.databinding.ActivityInDoorBinding
+import com.example.securityapp.fcmService.FcmNotificationsSender
 import com.google.android.material.imageview.ShapeableImageView
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import java.io.ByteArrayOutputStream
@@ -27,7 +32,6 @@ class InDoorActivity : AppCompatActivity() {
     private lateinit var binding: ActivityInDoorBinding
     private lateinit var calendar: Calendar
     private lateinit var visitorImage: ShapeableImageView
-//    private var database = FirebaseDatabase.getInstance().reference
     private lateinit var imageData: ByteArray
     private lateinit var name: String
     private lateinit var mobile: String
@@ -39,6 +43,10 @@ class InDoorActivity : AppCompatActivity() {
     private lateinit var inTime: String
     private lateinit var category: String
     private lateinit var remark: String
+
+    private lateinit var notificationsSender: FcmNotificationsSender
+    private var title: String = "Visitor Entry Notification"
+    private var message: String = "The visitor has entered your house."
 
     @SuppressLint("WrongThread")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,10 +76,20 @@ class InDoorActivity : AppCompatActivity() {
 
         // Select language using Dropdown menu
         val languages = resources.getStringArray(R.array.visitor_category)
-        val arrayAdapter = ArrayAdapter(this@InDoorActivity, R.layout.dropdown_item, languages)
-        binding.autoCompleteTextView.setAdapter(arrayAdapter)
+        val languagesArrayAdapter =
+            ArrayAdapter(this@InDoorActivity, R.layout.dropdown_item, languages)
+        binding.autoCompleteTextView.setAdapter(languagesArrayAdapter)
         binding.autoCompleteTextView.setOnItemClickListener { parent, _, position, _ ->
             category = parent.getItemAtPosition(position).toString()
+        }
+
+        // Select building no using Dropdown menu
+        val selectBuildingName = resources.getStringArray(R.array.building_name)
+        val buildingNoArrayAdapter =
+            ArrayAdapter(this@InDoorActivity, R.layout.building_no_dropdown, selectBuildingName)
+        binding.buildingName.setAdapter(buildingNoArrayAdapter)
+        binding.buildingName.setOnItemClickListener { parent, _, position, _ ->
+            buildingName = parent.getItemAtPosition(position).toString()
         }
 
         // Get click image of Visitor from intent and convert into ByteArray for store into firebase Storage
@@ -87,7 +105,6 @@ class InDoorActivity : AppCompatActivity() {
     private fun submitVisitorData() {
         name = binding.name.text.toString()
         mobile = binding.mobile.text.toString()
-        buildingName = binding.buildingName.text.toString()
         flatNo = binding.flatNo.text.toString()
         person = binding.person.text.toString()
         vehicleNo = binding.vehicleNo.text.toString()
@@ -145,14 +162,66 @@ class InDoorActivity : AppCompatActivity() {
         val childReference = database.child(id ?: "")
         childReference.setValue(user)
             .addOnSuccessListener {
-                Toast.makeText(this@InDoorActivity, "Visitor information is successfully add", Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this@InDoorActivity, MainActivity::class.java))
-                finish()
+                Toast.makeText(
+                    this@InDoorActivity,
+                    "Visitor information is successfully add",
+                    Toast.LENGTH_SHORT
+                ).show()
+                sendNotificationToUser(buildingName, flatNo)
             }
             .addOnFailureListener { e ->
-                Toast.makeText(this@InDoorActivity, "Failed to save data: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(
+                    this@InDoorActivity,
+                    "Failed to save data: ${e.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
 
+    }
+
+    // Send notification to user
+    private fun sendNotificationToUser(buildingName: String?, flatNo: String?) {
+        val query =
+            FirebaseDatabase.getInstance().getReference("user").orderByChild("buildingNo")
+                .equalTo("$buildingName")
+
+        query.addListenerForSingleValueEvent(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                for (snapshot in dataSnapshot.children) {
+                    val user = snapshot.getValue(UserDataModel::class.java)
+                    if (user != null && user.flatNo == flatNo) {
+                        val token = user.userToken
+                        try {
+                            notificationsSender = FcmNotificationsSender(
+                                token,
+                                title,
+                                message,
+                                applicationContext,
+                                this@InDoorActivity
+                            )
+                            notificationsSender.SendNotifications()
+                            Toast.makeText(
+                                this@InDoorActivity,
+                                "Visitor exit time updated",
+                                Toast.LENGTH_SHORT
+                            )
+                                .show()
+                            startActivity(Intent(this@InDoorActivity, MainActivity::class.java))
+                            finish()
+                        } catch (e: Exception) {
+                            Log.d(
+                                "error in sending notification",
+                                "onItemClick: ${e.message}"
+                            )
+                        }
+                    }
+                }
+            }
+
+            override fun onCancelled(databaseError: DatabaseError) {
+                Log.d("Database error ", "Database error: ${databaseError.message}")
+            }
+        })
     }
 
     private fun showTimePicker() {
@@ -166,6 +235,7 @@ class InDoorActivity : AppCompatActivity() {
                 val amPm = if (selectedHour >= 12) "PM" else "AM"
                 val formattedMinute = String.format("%02d", selectedMinute)
                 inTime = "$formattedHour:$formattedMinute $amPm"
+                Toast.makeText(this@InDoorActivity, inTime, Toast.LENGTH_SHORT).show()
             }, hour, minute, false
         )
         timePickerDialog.show()
@@ -180,7 +250,7 @@ class InDoorActivity : AppCompatActivity() {
                     selectedDate.set(year, monthOfYear, dayOfMonth)
                     val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                     entryDate = dateFormat.format(selectedDate.time)
-                    Toast.makeText(this, entryDate, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@InDoorActivity, entryDate, Toast.LENGTH_SHORT).show()
                 },
                 calendar.get(Calendar.YEAR),
                 calendar.get(Calendar.MONTH),
