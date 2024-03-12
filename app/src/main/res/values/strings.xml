@@ -44,6 +44,14 @@
     <string name="staff_exit">Staff Exit</string>
     <string name="staff_entry">Staff Entry</string>
     <string name="splash_logo">splash_logo</string>
+    <string name="staff">Staff</string>
+    <string name="visitor_entry">Visitor Entry</string>
+    <string name="ic_arrow_forward">ic_arrow_forward</string>
+    <string name="collecting_and_using_your_personal_data">Collecting and Using Your Personal Data</string>
+    <string name="security_of_your_personal_data">Security of Your Personal Data</string>
+    <string name="contact_us">Contact Us</string>
+    <string name="email_securehome_gmail_com">Email: securehome@gmail.com</string>
+    <string name="terms_amp_conditions"><![CDATA[Terms & Conditions]]></string>
 
     <string-array name="visitor_category">
         <item>Engineer</item>

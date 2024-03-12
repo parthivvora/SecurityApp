@@ -31,10 +31,18 @@
         android:paddingHorizontal="30dp">
 
         <TextView
-            android:id="@+id/profile"
+            android:id="@+id/visitorEntry"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/profile"
+            android:text="@string/visitor_entry"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/staffEntry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/staff"
             android:textSize="18sp" />
 
         <TextView

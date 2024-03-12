@@ -8,4 +8,6 @@
     <color name="visitor_exit_bg">#F6F6F6</color>
     <color name="white">#FFFFFF</color>
     <color name="textColorLight">#ABABAB</color>
+    <color name="ripple_color">#8b8989</color>
+
 </resources>

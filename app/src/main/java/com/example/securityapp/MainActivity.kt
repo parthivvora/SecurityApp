@@ -21,7 +21,6 @@ import com.google.firebase.auth.FirebaseAuth
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var auth: FirebaseAuth
-    private lateinit var notificationsSender: FcmNotificationsSender
 
     companion object {
         private const val CAMERA_PERMISSION_CODE = 100
@@ -58,17 +57,6 @@ class MainActivity : AppCompatActivity() {
             binding.staffOutActivity.background = resources.getDrawable(R.drawable.card_border, null)
             startActivity(Intent(this@MainActivity, StaffExitActivity::class.java))
             finish()
-        }
-
-        binding.sujal.setOnClickListener {
-            notificationsSender = FcmNotificationsSender(
-                "e81f9zrBRVqVEFShTGyxlL:APA91bE4LrqsH2Dj3IdyAFweU3MkoutYCs1GxKN1H9xFU41y5sFRIAok4Ilag-2qVtSjdWeUA3nOThtnKtG9z0_kbP8i_5e-XmC0fmWped-_wedtg--bbDl1bhIqn_Du1SMZibWwYJFW",
-                "Visitor Entry Notification",
-                "The visitor has entered your house.",
-                applicationContext,
-                this@MainActivity
-            )
-            notificationsSender.SendNotifications()
         }
     }
 
@@ -139,14 +127,17 @@ class MainActivity : AppCompatActivity() {
             binding.drawerLayout.openDrawer(GravityCompat.START)
         }
 
-        binding.customMenu.profile.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Profile", Toast.LENGTH_SHORT).show()
+        binding.customMenu.visitorEntry.setOnClickListener {
+            startActivity(Intent(this@MainActivity, InDoorActivity::class.java))
+        }
+        binding.customMenu.staffEntry.setOnClickListener {
+            startActivity(Intent(this@MainActivity, StaffActivity::class.java))
         }
         binding.customMenu.privacyPolicy.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Privacy Policy", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@MainActivity, PrivacyPolicyActivity::class.java))
         }
         binding.customMenu.termCondition.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Terms Condition", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@MainActivity, TermsConditionActivity::class.java))
         }
         binding.customMenu.logout.setOnClickListener {
            try {
